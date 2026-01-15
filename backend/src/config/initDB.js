@@ -5,6 +5,9 @@ async function initDb() {
     // Disable FK checks for resets
     await pool.query("SET FOREIGN_KEY_CHECKS = 0");
 
+    await pool.query("CREATE DATABASE IF NOT EXISTS nextswim");
+    await pool.query("USE nextswim");
+
     // Drop tables
     await pool.query("DROP TABLE IF EXISTS user_resources");
     await pool.query("DROP TABLE IF EXISTS goals");
@@ -57,3 +60,17 @@ async function initDb() {
 }
 
 module.exports = initDb;
+
+
+/*
+Impliment this next, but use current set up for now
+
+const pool = mysql.createPool({
+  host: "localhost",
+  user: "root",
+  password: process.env.DB_PASSWORD,
+  database: "nextswim"
+});
+
+*/
+
