@@ -1,5 +1,8 @@
+// backend/app.js
 const express = require("express");
 const cors = require("cors");
+
+const aquaticResourcesRoutes = require("./src/routes/aquaticResources");
 
 const app = express();
 
@@ -7,7 +10,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Test route (important for verifying frontend ↔ backend)
+// Routes
+app.use("/api/aquatic-resources", aquaticResourcesRoutes);
+
+// Health check route
 app.get("/api/swim", (req, res) => {
   res.json({ status: "Backend is running" });
 });

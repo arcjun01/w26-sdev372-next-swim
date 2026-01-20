@@ -1,3 +1,4 @@
+// backend/config/initDB.js
 const pool = require("./db");
 
 async function initDb() {
@@ -8,7 +9,7 @@ async function initDb() {
     await pool.query("CREATE DATABASE IF NOT EXISTS nextswim");
     await pool.query("USE nextswim");
 
-    // Drop tables
+    // Drop tables if they exist
     await pool.query("DROP TABLE IF EXISTS user_resources");
     await pool.query("DROP TABLE IF EXISTS goals");
     await pool.query("DROP TABLE IF EXISTS aquatic_resources");
@@ -56,6 +57,7 @@ async function initDb() {
     console.log("Database initialized successfully");
   } catch (err) {
     console.error("Database init failed:", err);
+    throw err;
   }
 }
 
