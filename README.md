@@ -55,3 +55,10 @@ Swim App
 
         Wireframe: 
             https://wireframe.cc/3jeA9w 
+
+
+
+    Next Features to work on:
+
+        * Swim quiz form 
+        * Swim skill evaluation
