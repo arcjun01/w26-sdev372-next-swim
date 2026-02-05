@@ -1,13 +1,16 @@
 import { useEffect, useState } from "react";
 import { getResources } from "../services/api";
 import type { Resource } from "../types/resource";
+import AddResource from "./AddResourceForm";
 
 export default function Resources() {
   const [resources, setResources] = useState<Resource[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
+  // function we can call anytime to refresh the data
+  const loadData = () => {
+    setLoading(true);
     getResources()
       .then((data) => {
         setResources(data);
@@ -17,14 +20,23 @@ export default function Resources() {
         setError(err.message);
         setLoading(false);
       });
+  };
+
+  
+  useEffect(() => {
+    loadData();
   }, []);
 
-  if (loading) return <p>Loading resources...</p>;
+  if (loading && resources.length === 0) return <p>Loading resources...</p>;
   if (error) return <p>Error: {error}</p>;
 
   return (
     <div className="resources-page">
       <h1>Aquatic Resources</h1>
+
+     
+      <AddResource onSuccess={loadData} />
+
       <ul className="resources-list">
         {resources.map((resource) => (
           <li key={resource.id} className="resource-item">
