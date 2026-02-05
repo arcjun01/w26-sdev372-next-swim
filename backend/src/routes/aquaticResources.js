@@ -15,4 +15,30 @@ router.get("/", async (req, res) => {
   }
 });
 
+//post route to create new resources
+router.post("/", async (req, res) => {
+  const { title, resource_type, difficulty_level, description, url } = req.body;
+
+  try {
+    const [result] = await pool.query(
+      "INSERT INTO aquatic_resources (title, resource_type, difficulty_level, description, url) VALUES (?, ?, ?, ?, ?)",
+      [title, resource_type, difficulty_level, description, url]
+    );
+    
+    // Return the new resource with its ID
+    res.status(201).json({ 
+      id: result.insertId, 
+      title, 
+      resource_type, 
+      difficulty_level, 
+      description, 
+      url 
+    });
+  } catch (err) {
+    console.error("Error adding resource:", err);
+    res.status(500).json({ error: "Failed to add resource" });
+  }
+});
+
+
 module.exports = router;
