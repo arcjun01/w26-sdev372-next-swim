@@ -3,6 +3,16 @@ import { useState } from "react";
 export default function Quiz() {
   const [level, setLevel] = useState<string>("Beginner");
 
+    const handleDownload = () => {
+    const results = `NextSwim Results\nLevel: ${level}\nDate: ${new Date().toLocaleDateString()}`;
+    const blob = new Blob([results], { type: "text/plain" });
+    const url = window.URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = "MySwimLevel.txt";
+    link.click();
+  };
+
   return (
     <div className="quiz-page">
       <h1>Swim Level Analysis</h1>
@@ -19,7 +29,12 @@ export default function Quiz() {
           <option value="Advanced">Level 3: Advanced</option>
         </select>
         <p>Current selection: {level}</p>
+
+        <button className="quiz-button" onClick={handleDownload}>
+        Download Results to View Later
+        </button>
       </div>
     </div>
   );
 }
+
