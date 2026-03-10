@@ -17,12 +17,12 @@ describe('Resources page', () => {
     vi.spyOn(api, 'getResources').mockResolvedValue(mockData as any);
 
     render(<Resources />);
-
-    expect(screen.getByText(/Loading resources.../i)).toBeInTheDocument();
+    expect(screen.getByText(/Loading resources.../i)).toBeTruthy();
 
     await waitFor(() => {
-      expect(screen.getByText('R1')).toBeInTheDocument();
-      expect(screen.getByText(/Type:/i)).toBeInTheDocument();
+    
+      expect(screen.getByText('R1')).toBeTruthy();
+      expect(screen.getByText(/Type:/i)).toBeTruthy();
     });
   });
 });

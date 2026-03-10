@@ -31,7 +31,7 @@ export default function Resources() {
   // Group resources by difficulty_level
   const groupedResources: Record<number, Resource[]> = {};
   resources.forEach((r) => {
-    const level = r.difficulty_level ?? 1; // fallback to 1 if null
+    const level = r.difficulty_level ?? 1; 
     if (!groupedResources[level]) groupedResources[level] = [];
     groupedResources[level].push(r);
   });

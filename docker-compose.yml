@@ -11,6 +11,7 @@ services:
       - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
+      # Keep this to allow the container to use your SQL files for init
       - ./backend/db:/docker-entrypoint-initdb.d
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
@@ -30,6 +31,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    
+    command: sh -c "npm test && npm run test:integration && npm run dev"
 
   frontend:
     build: ./frontend
